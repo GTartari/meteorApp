@@ -2,11 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { browserHistory } from 'react-router';
 
-import SideBar from './sidebar/sidebar.jsx';
-import AppHeader from '../app/app_header.jsx';
 import AppFooter from '../app/app_footer.jsx';
 import StatisticView from './views/statistics/statistics.jsx';
 import ModelParamView from './views/model_param/model_param.jsx';
+import SideBar from './sidebar/sidebar.jsx';
 
 
 class Dashboard extends Component {
@@ -29,18 +28,17 @@ class Dashboard extends Component {
     render() {
 
         const contentMinHeight = {
-            minHeight: ((window.innerHeight - 101) + 'px')
+            minHeight: ((window.innerHeight - 101) + 'px'),
+            position: ('relative'),
+            left: ('100px')
         };
 
         return (
             <div className="wrapper">
-                <AppHeader user={ this.props.currentUser }/>
-                <SideBar user={ this.props.currentUser } users={ this.props.users }/>
-                
+                <SideBar user={ this.props.currentUser } users={ this.props.users }/>               
                 <div className="content-wrapper" style={ contentMinHeight }>
                     { this.getContentView() }
                 </div>
-
                 <AppFooter />
                 <div className="control-sidebar-bg"></div>
             </div>

@@ -67,6 +67,7 @@ export default class SignIn extends Component {
 	        	<AppBar
 			        title="PriceApp"
 			        iconClassNameRight="muidocs-icon-navigation-expand-more"
+			        showMenuIconButton={false}
 			      />
 			    <br />
 				 <Paper style={stylePaper} zDepth={3}>

@@ -1,4 +1,13 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
+
+import Avatar from 'material-ui/Avatar';
+import FileFolder from 'material-ui/svg-icons/file/folder';
+import FontIcon from 'material-ui/FontIcon';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
+import IconButton from 'material-ui/IconButton';
+import LogOut from 'material-ui/svg-icons/navigation/cancel';
 
 export default class SideBarUserPanel extends Component {
     constructor(props) {
@@ -8,19 +17,26 @@ export default class SideBarUserPanel extends Component {
         //función para retornar el url del avatar del usuario
         return "/img/avatar.png"
     }
+    logout() {
+        Meteor.logout(function() {
+            browserHistory.push('/');   
+        });     
+    }
     render() {
         const displayName = this.props.userName;
         
         return (
-            <div className="user-panel">
-                <div className="pull-left image">
-                    <img src={this.userAvatarURL()} className="img-circle" alt="User Image"/>
-                </div>
-                <div className="pull-left info">
-                    <p>{ displayName }</p>
-                    <a href="#"><i className="fa fa-circle text-success"/> Online</a>
-                </div>
-            </div>
+            <List>
+                <ListItem
+                  disabled={true}
+                  leftAvatar={<Avatar>A</Avatar>}
+                >
+                  { displayName }
+                  <IconButton tooltip="log-out" onClick={ this.logout }>
+                  <LogOut />
+                </IconButton>
+                </ListItem>
+            </List>
         )
     }
 }

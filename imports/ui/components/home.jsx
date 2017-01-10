@@ -25,14 +25,15 @@ const Home = () => (
     <AppBar
         title="PriceApp"
         iconClassNameRight="muidocs-icon-navigation-expand-more"
+        showMenuIconButton={false}
       />
     <br />
     <Paper style={stylePaper} zDepth={3}>
-    <AppBar
-        title="log-in"
-        iconClassNameRight="muidocs-icon-navigation-expand-more"
-        showMenuIconButton={false}
-      />
+      <AppBar
+          title="log-in"
+          iconClassNameRight="muidocs-icon-navigation-expand-more"
+          showMenuIconButton={false}
+        />
     	<br />
       <RaisedButton label="sign-in" primary={true} style={style} href={ '/sign-in' } />
       <RaisedButton label="sign-up" primary={true} style={style} href={ '/sign-up' } />

@@ -5,8 +5,11 @@ import { Link } from 'react-router';
 import CallOutMessage from './warnings/callout_message.jsx';
 
 import TextField from 'material-ui/TextField';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 
 const style = {
   margin: 12,
@@ -85,47 +88,52 @@ export default class SignUp extends Component {
     render() {
 
         return (
-            <Paper style={stylePaper} zDepth={3}>
-                <div className="register-logo">
-                    <a href="/"><b>Admin</b>LTE</a>
-                </div>
+            <div>
+                <AppBar
+                    title="PriceApp"
+                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    showMenuIconButton={false}
+                  />
+                <br />
+                <Paper style={stylePaper} zDepth={3}>
+                    <AppBar
+                        title="Admin LTE"
+                        iconClassNameRight="muidocs-icon-navigation-expand-more"
+                        showMenuIconButton={false}
+                        //href="/"
+                      />
+                    <div className="register-box-body">
+                        <p className="login-box-msg">Register</p>
+                        { this.getSignUpResponseMessage() }
 
-                <div className="register-box-body">
-                    <p className="login-box-msg">Register</p>
-                    { this.getSignUpResponseMessage() }
-
-                    <form onSubmit={ this.onSubmit.bind(this) }>
-                        <div className="form-group has-feedback">
-                            <TextField type="text" onChange={ this.onChangeUsername.bind(this) } value={ this.state.username } className="form-control" placeholder="Username" />
-                                <span className="glyphicon glyphicon-user form-control-feedback"></span>
-                        </div>
-                        <div className="form-group has-feedback">
-                            <TextField type="email" onChange={ this.onChangeEmail.bind(this) } value={ this.state.email } className="form-control" placeholder="Email" />
-                                <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
-                        </div>
-                        <div className="form-group has-feedback">
-                            <TextField type="password" onChange={ this.onChangePassword.bind(this) } value={ this.state.password } className="form-control" placeholder="Password" />
-                                <span className="glyphicon glyphicon-lock form-control-feedback"></span>
-                        </div>
-                        <div className="form-group has-feedback">
-                            <TextField type="password" onChange={ this.onChangeRepeatPassword.bind(this) } value={ this.state.repeatPassword }  className="form-control" placeholder="Retype password" />
-                                <span className="glyphicon glyphicon-log-in form-control-feedback"></span>
-                        </div>
-                        <div className="row">
-
-                            <div className="col-xs-4">
-                                <RaisedButton label="Register" primary={true} style={style} type="submit" />
+                        <form onSubmit={ this.onSubmit.bind(this) }>
+                            <div className="form-group has-feedback">
+                                <TextField type="text" onChange={ this.onChangeUsername.bind(this) } value={ this.state.username } className="form-control" placeholder="Username" />
+                                    <span className="glyphicon glyphicon-user form-control-feedback"></span>
                             </div>
-                        </div>
-                    </form>
-
-                    <br/>
-                    <Link to={'/sign-in'}>
-                        I already have an account
-                    </Link>
-
-                </div>
-            </Paper>
+                            <div className="form-group has-feedback">
+                                <TextField type="email" onChange={ this.onChangeEmail.bind(this) } value={ this.state.email } className="form-control" placeholder="Email" />
+                                    <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            </div>
+                            <div className="form-group has-feedback">
+                                <TextField type="password" onChange={ this.onChangePassword.bind(this) } value={ this.state.password } className="form-control" placeholder="Password" />
+                                    <span className="glyphicon glyphicon-lock form-control-feedback"></span>
+                            </div>
+                            <div className="form-group has-feedback">
+                                <TextField type="password" onChange={ this.onChangeRepeatPassword.bind(this) } value={ this.state.repeatPassword }  className="form-control" placeholder="Retype password" />
+                                    <span className="glyphicon glyphicon-log-in form-control-feedback"></span>
+                            </div>
+                            <div className="row">
+                                <div className="col-xs-4">
+                                    <RaisedButton label="Register" primary={true} style={style} type="submit" />
+                                </div>
+                            </div>
+                        </form>
+                        <br/>
+                        <FlatButton label="I already have an account" primary={true} style={style} href='/sign-in' />
+                    </div>
+                </Paper>
+            </div>
         );
     }
 }
