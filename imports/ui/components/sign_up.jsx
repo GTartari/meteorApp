@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import Subheader from 'material-ui/Subheader';
 
 const style = {
   margin: 12,
@@ -100,10 +101,9 @@ export default class SignUp extends Component {
                         title="Admin LTE"
                         iconClassNameRight="muidocs-icon-navigation-expand-more"
                         showMenuIconButton={false}
-                        //href="/"
                       />
                     <div className="register-box-body">
-                        <p className="login-box-msg">Register</p>
+                        <Subheader>Register</Subheader>
                         { this.getSignUpResponseMessage() }
 
                         <form onSubmit={ this.onSubmit.bind(this) }>

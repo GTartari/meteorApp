@@ -29,6 +29,7 @@ export default class SideBarMenu extends Component {
                 <MenuItem primaryText="UploadData" leftIcon={<Upload />} containerElement={ <Link to="/updata" />} />
                 <MenuItem primaryText="Parametros Modelo" leftIcon={<ContentCopy />} containerElement={ <Link to="/modelparam" />} />
                 <MenuItem primaryText="Stats" leftIcon={<Graph />} containerElement={ <Link to="/stats" />} />
+                <MenuItem primaryText="pyScript" leftIcon={<Graph />} containerElement={ <Link to="/script" />} />
                 <Divider />
                 <MenuItem primaryText="Users" leftIcon={<UserI />} />
             </Menu>

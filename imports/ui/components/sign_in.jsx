@@ -11,6 +11,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import Subheader from 'material-ui/Subheader';
 
 
 const stylePaper = {
@@ -77,7 +78,7 @@ export default class SignIn extends Component {
 				        showMenuIconButton={false}
 				      />
 					<div className="login-box-body">
-						<p className="login-box-msg">Sign in to start your session</p>
+      					<Subheader>Sign in to start your session</Subheader>
 						{ this.getLoginResponseMessage() }
 
 						<form onSubmit={this.onSubmit.bind(this)}>

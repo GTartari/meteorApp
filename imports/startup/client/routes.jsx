@@ -8,6 +8,7 @@ import Dashboard from '../../ui/components/dashboard/dashboard.jsx';
 import Statistics from '../../ui/components/dashboard/views/statistics/statistics.jsx';
 import ModelParamView from '../../ui/components/dashboard/views/model_param/model_param.jsx';
 import UploadDataView from '../../ui/components/dashboard/views/uploadData/uploadData.jsx';
+import PyScript from '../../ui/components/dashboard/views/pyScript/pyScript.jsx';
 
 
 import { NotFound } from '../../ui/pages/not_found/not_found';
@@ -24,6 +25,7 @@ export const Routes = () => (
 				<Route path="/stats" component={ Statistics }/>
 				<Route path="/updata" component={ UploadDataView }/>
 				<Route path="/modelparam" component={ ModelParamView }/>
+				<Route path="/script" component={ PyScript }/>
 			</Route>
 		</Route>
 		<Route name="not-found" path="*" component={ NotFound } />

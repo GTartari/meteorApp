@@ -29,8 +29,8 @@ class Dashboard extends Component {
 
         const contentMinHeight = {
             minHeight: ((window.innerHeight - 101) + 'px'),
-            position: ('relative'),
-            left: ('100px')
+            //position: ('relative'),
+            //left: ('100px')
         };
 
         return (
