@@ -88,18 +88,19 @@ export default class Restricciones extends Component {
         this.setState({varMaxNC: val});
     }
 
-    onSubmit(event) {
+    onConstrSubmit(event) {
         event.preventDefault();
         Meteor.call('inputConstrData.insert', this.state, function(error, result){
             if(error){
               console.log(error);
-                console.log("call function returned error");
-              }
-            else
-                if(result==1)
-                    console.log("input created");
-                else
-                    console.log("input updated");
+              console.log("call function returned error");
+            }
+            else{
+              if(result==1)
+                Bert.alert( 'Input created!', 'success', 'growl-top-right');
+              else
+                Bert.alert( 'Input updated!', 'success', 'growl-top-right');
+            }
         });
     }
 
@@ -109,7 +110,7 @@ export default class Restricciones extends Component {
 	            <Paper style={stylePaper} zDepth={3}>
                     <div className="register-box-body">
                         { /*this.getSignUpResponseMessage() */}
-                        <form onSubmit={ this.onSubmit.bind(this) }> {/*From -> onSubmit={ this.onSubmit.bind(this) }*/}
+                        <form onSubmit={ this.onConstrSubmit.bind(this) }> {/*From -> onSubmit={ this.onSubmit.bind(this) }*/}
                             <Subheader>Parametros</Subheader>
                             {/*textfield -> onChange={this.onChangeEmail.bind(this)} value={this.state.email}*/}
                             <TextField type="number" hintText="Valor" onChange={ this.onChangePrecios.bind(this) } value={ this.state.movPrecios } floatingLabelText="N° máx. de movimientos de precio" />

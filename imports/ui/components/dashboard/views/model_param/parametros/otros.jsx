@@ -77,10 +77,10 @@ export default class Otros extends Component {
             if(error)
                 console.log("call function returned error");
             else
-                if(result==1)
-                    console.log("input created");
-                else
-                    console.log("input updated");
+              if(result==1)
+                Bert.alert( 'Input created!', 'success', 'growl-top-right');
+              else
+                Bert.alert( 'Input updated!', 'success', 'growl-top-right');
         });
     }
 

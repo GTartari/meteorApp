@@ -22,7 +22,7 @@ const stylePaper = {
   textAlign: 'center',
 };
 
-export default class Objetivos extends Component {  
+export default class Objetivos extends Component {
 	constructor(props) {
         super(props);
 
@@ -79,16 +79,17 @@ export default class Objetivos extends Component {
         this.setState({posT});
     }
 
-    onSubmit(event) {
+    onObjSubmit(event) {
         event.preventDefault();
         Meteor.call('inputObjData.insert', { tolerancia: this.state.tolerancia, posA: this.state.posA, posB: this.state.posB, posC: this.state.posC, posD: this.state.posD, posE:this.state.posE, posT: this.state.posT }, function(error, result){
             if(error)
                 console.log("call function returned error");
-            else
-                if(result==1)
-                    console.log("input created");
+            else{
+                if(result == 1)
+                  Bert.alert( 'Input created!', 'success', 'growl-top-right');
                 else
-                    console.log("input updated");
+                  Bert.alert( 'Input updated!', 'success', 'growl-top-right');
+            }
         });
     }
 
@@ -98,7 +99,7 @@ export default class Objetivos extends Component {
 	            <Paper style={stylePaper} zDepth={3}>
                     <div className="register-box-body">
                         { /*this.getSignUpResponseMessage() */}
-                        <form onSubmit={ this.onSubmit.bind(this) }> {/*From -> onSubmit={ this.onSubmit.bind(this) }*/}
+                        <form onSubmit={ this.onObjSubmit.bind(this) }> {/*From -> onSubmit={ this.onSubmit.bind(this) }*/}
                             <Subheader>Parametros</Subheader>
                             {/*textfield -> onChange={this.onChangeEmail.bind(this)} value={this.state.email}*/}
                             <TextField type="number" ref="toleranciaInput" onChange={ this.onChangeTol.bind(this) } value={ this.state.tolerancia } hintText="Valor" floatingLabelText="Tolerancia no posicionables" />
@@ -131,4 +132,3 @@ export default class Objetivos extends Component {
         );
     }
 }
-

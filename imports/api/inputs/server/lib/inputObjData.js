@@ -1,4 +1,4 @@
-InputData = new Mongo.Collection('inputObjData');
+InputObjData = new Mongo.Collection('inputObjData');
 
 Meteor.methods({
 	'inputObjData.insert'(inputAttributes) {
@@ -25,13 +25,13 @@ Meteor.methods({
 			submitted: new Date()
 		});
 
-		var userInput = InputData.findOne({userId:user._id});
+		var userInput = InputObjData.findOne({userId:user._id});
 
 		if (userInput == null){
-			InputData.insert(inputData);
+			InputObjData.insert(inputData);
 			return 1;
 		}else{
-			InputData.update(userInput, inputData);
+			InputObjData.update(userInput, inputData);
 			return 2;
 		}
 	}

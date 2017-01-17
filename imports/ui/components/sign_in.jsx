@@ -86,7 +86,7 @@ export default class SignIn extends Component {
 								<TextField type="email" className="form-control" placeholder="Email" onChange={this.onChangeEmail.bind(this)} value={this.state.email}/>
 								<span className="glyphicon glyphicon-envelope form-control-feedback" />
 							</div>
-							
+
 							<div className="form-group has-feedback">
 								<TextField type="password" className="form-control" placeholder="Password"  onChange={this.onChangePassword.bind(this)} value={this.state.password}/>
 								<span className="glyphicon glyphicon-lock form-control-feedback" />

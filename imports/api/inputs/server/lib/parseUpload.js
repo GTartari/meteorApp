@@ -1,7 +1,7 @@
 DataFile = new Mongo.Collection('Data');
 
 Meteor.methods({
-  parseUpload( data ) {
+  'parseUpload' ( data ) {
     check( data, Array );
 
     DataFile.remove({});
@@ -10,5 +10,9 @@ Meteor.methods({
       let item   = data[ i ]
       DataFile.insert( item );
     }
+    DataFile.insert({
+      submitted: new Date()
+    });
+    return true;
   }
 });
