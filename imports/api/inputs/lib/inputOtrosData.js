@@ -1,17 +1,16 @@
-InputData = new Mongo.Collection('inputObjData');
+InputData = new Mongo.Collection('inputOtrosData');
 
 Meteor.methods({
-	'inputObjData.insert'(inputAttributes) {
+	'inputOtrosData.insert'(inputAttributes) {
 
 		check(this.userId, String);
 		check(inputAttributes, {
-			tolerancia: Number,
-			posA: Number,
-			posB: Number,
-			posC: Number,
-			posD: Number,
-			posE: Number,
-			posT: Number
+			solver: String,
+			log: Boolean,
+			round: Boolean,
+			sb: Boolean,
+			links: Boolean,
+			precios: Boolean
 		});
 
 		if (! this.userId) {

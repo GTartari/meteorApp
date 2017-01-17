@@ -11,21 +11,13 @@ import AppBar from 'material-ui/AppBar';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 
-require('rc-slider/assets/index.css');
-var Slider = require('rc-slider');
+import CustomizedSlider from './customizedSlider';
 
 const style = {
   margin: 12,
+  paddingTop: 30,
 };
 
-const style1 = {
-    width: '50%',
-    float: 'left',
-}
-const style2 = {
-    width: '50%',
-    float: 'right',
-}
 const styleSlider = {
   width: '90%',
   margin: '0 auto',
@@ -46,65 +38,19 @@ const stylePaper = {
   textAlign: 'center',
 };
 
-const marks = { 50: "50%", 40:"40%" , 30:"30%" , 20:"20%" , 10:"10%" , 0:<strong>0%</strong> , "-10":"-10%" , "-20":"-20%" , "-30":"30%" , "-40":"-40%" , "-50":"-50%" };
-
-const CustomizedSlider = React.createClass({
-  getInitialState() {
-    return {
-      valueP: 50,
-      valueN: -50,
-    };
-  },
-  onSliderChange(value) {
-    this.props.onChangeVarA.bind(this);
-    let vP = -value[0];
-    let vN = value[0];
-    this.setState({
-      valueP:vP,
-      valueN:vN,
-    });
-  },
-  onSliderChange2(value) {
-    this.props.onChangeVarA.bind(this);
-    let vP = value[1];
-    let vN = -value[1];
-    this.setState({
-      valueP:vP,
-      valueN:vN,
-    });
-  },
-  render() {
-    return (
-        <div>
-        <div style={style1}>
-      <Slider
-        onChange={this.onSliderChange}
-        min={-100} max={0} value={[this.state.valueN, 0]}
-                             onChange={this.onSliderChange} onAfterChange={this.onAfterChange}
-                              range={true} allowCross={false} pushable={true}
-      />
-      </div>
-      <div style={style1}>
-      <Slider onChange={this.onSliderChange2} min={0} max={100} value={[0, this.state.valueP]} range={true} allowCross={false} pushable={true}/>
-      </div>
-      </div>
-    );
-  },
-});
-
-export default class Restricciones extends Component {  
+export default class Restricciones extends Component {
 	constructor(props) {
         super(props);
 
         this.state = {
             movPrecios: 0,
             posXProd: 0,
-            varMaxA: 0,
-            varMaxB: 0,
-            varMaxC: 0,
-            varMaxD: 0,
-            varMaxE: 0,
-            varMaxNC: 0,
+            varMaxA: 25,
+            varMaxB: 25,
+            varMaxC: 25,
+            varMaxD: 25,
+            varMaxE: 25,
+            varMaxNC: 25,
         };
     }
 
@@ -118,17 +64,37 @@ export default class Restricciones extends Component {
         this.setState({posXProd});
     }
 
-    onChangeVarA(event) {
-        let varMaxA = Number(event.target.value);
-        console.log(varMaxA);
-        this.setState({varMaxA});
+    onChangeVarA(val) {
+        this.setState({varMaxA: val});
+    }
+
+    onChangeVarB(val) {
+        this.setState({varMaxB: val});
+    }
+
+    onChangeVarC(val) {
+        this.setState({varMaxC: val});
+    }
+
+    onChangeVarD(val) {
+        this.setState({varMaxD: val});
+    }
+
+    onChangeVarE(val) {
+        this.setState({varMaxE: val});
+    }
+
+    onChangeVarNC(val) {
+        this.setState({varMaxNC: val});
     }
 
     onSubmit(event) {
         event.preventDefault();
-        Meteor.call('inputConstrData.insert', { tolerancia: this.state.tolerancia, posA: this.state.posA, posB: this.state.posB, posC: this.state.posC, posD: this.state.posD, posE:this.state.posE, posT: this.state.posT }, function(error, result){
-            if(error)
+        Meteor.call('inputConstrData.insert', this.state, function(error, result){
+            if(error){
+              console.log(error);
                 console.log("call function returned error");
+              }
             else
                 if(result==1)
                     console.log("input created");
@@ -155,37 +121,37 @@ export default class Restricciones extends Component {
                             <p style={styleLabel} >var_max A (Top Venta)</p>
                             <div style={styleSlider}>
                             <br/>
-                            <CustomizedSlider data={ this.state.posA } changeHandler={this.onChangeVarA}/>
+                            <CustomizedSlider data={ this.state.posA } changeHandler={this.onChangeVarA.bind(this)}/>
                             </div>
                             <br/>
                             <p style={styleLabel} >var_max B (Canasta de Mercado)</p>
                             <div style={styleSlider}>
                             <br/>
-                                <CustomizedSlider />
+                            <CustomizedSlider changeHandler={this.onChangeVarB.bind(this)}/>
                             </div>
                             <br/>
                             <p style={styleLabel} >var_max C (Fondo Surtido)</p>
                             <div style={styleSlider}>
                             <br/>
-                            <CustomizedSlider />
+                            <CustomizedSlider changeHandler={this.onChangeVarC.bind(this)}/>
                             </div>
                             <br/>
                             <p style={styleLabel} >var_max D (MMPP)</p>
                             <div style={styleSlider}>
                             <br/>
-                            <CustomizedSlider />
+                            <CustomizedSlider changeHandler={this.onChangeVarD.bind(this)}/>
                             </div>
                             <br/>
                             <p style={styleLabel} >var_max E (OPP)</p>
                             <div style={styleSlider}>
                             <br/>
-                            <CustomizedSlider />
+                            <CustomizedSlider changeHandler={this.onChangeVarE.bind(this)}/>
                             </div>
                             <br/>
                             <p style={styleLabel} >var_max NC (No Comparable)</p>
                             <div style={styleSlider}>
                             <br/>
-                            <CustomizedSlider />
+                            <CustomizedSlider changeHandler={this.onChangeVarNC.bind(this)}/>
                             </div>
                             <br/>
                             <RaisedButton label="submit" primary={true} style={style} type="submit" />
@@ -193,8 +159,7 @@ export default class Restricciones extends Component {
                     </div>
                 </Paper>
             </div>
-            
+
         );
     }
 }
-

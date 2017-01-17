@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
 // components
-import Objetivos from './parametros/objetivos.jsx';
-import Restricciones from './parametros/restricciones.jsx';
-import Otros from './parametros/otros.jsx';
+import Objetivos from './parametros/objetivos';
+import Restricciones from './parametros/restricciones/restricciones';
+import Otros from './parametros/otros';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Dialog from 'material-ui/Dialog';
@@ -92,4 +92,3 @@ export default class ModelParamView extends Component {
         );
     }
 }
-

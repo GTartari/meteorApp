@@ -5,20 +5,21 @@ Meteor.methods({
 
         check(this.userId, String);
         check(inputAttributes, {
-            tolerancia: Number,
-            posA: Number,
-            posB: Number,
-            posC: Number,
-            posD: Number,
-            posE: Number,
-            posT: Number
+            movPrecios: Number,
+            posXProd: Number,
+            varMaxA: Number,
+            varMaxB: Number,
+            varMaxC: Number,
+            varMaxD: Number,
+            varMaxE: Number,
+            varMaxNC: Number
         });
 
         if (! this.userId) {
           throw new Meteor.Error('not-authorized');
         }
 
-        var user = Meteor.user();       
+        var user = Meteor.user();
 
         inputData = _.extend(inputAttributes, {
             userId: user._id,

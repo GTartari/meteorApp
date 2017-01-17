@@ -19,10 +19,12 @@ const styles = {
     margin: 12,
   },
   checkbox: {
-    marginBottom: 16,
-    width: '10%',
-    position: 'relative',
-    left: '45%',
+    width: '40%',
+    margin: '0 auto',
+    padding: 20,
+  },
+  selectBar: {
+    padding: 20,
   },
 };
 
@@ -32,33 +34,69 @@ const stylePaper = {
   textAlign: 'center',
 };
 
-export default class Otros extends Component {  
+export default class Otros extends Component {
 	constructor(props) {
         super(props);
         this.state = {
-          value: 1,
+          solver: "CPLEX",
+          log: false,
+          round: false,
+          sb: false,
+          links: false,
+          precios: false,
         };
     }
 
+    onChangeSelect(event) {
+        this.setState({solver: event.target.value});
+    }
 
-  handleChange(event, index, value) {
-    this.setState({value})
-};
+    onChangeLog(event) {
+        (this.state.log ? this.setState({log: false}) : this.setState({log:true}));
+    }
+
+    onChangeRound(event) {
+        (this.state.round ? this.setState({round: false}) : this.setState({round:true}));
+    }
+
+    onChangeSb(event) {
+        (this.state.sb ? this.setState({sb: false}) : this.setState({sb:true}));
+    }
+
+    onChangeLinks(event) {
+        (this.state.links ? this.setState({links: false}) : this.setState({links:true}));
+    }
+
+    onChangePrecios(event) {
+        (this.state.precios ? this.setState({precios: false}) : this.setState({precios:true}));
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+        Meteor.call('inputOtrosData.insert', this.state , function(error, result){
+            if(error)
+                console.log("call function returned error");
+            else
+                if(result==1)
+                    console.log("input created");
+                else
+                    console.log("input updated");
+        });
+    }
 
     render() {
         return (
         	<div className="statistic-content">
 	            <Paper style={stylePaper} zDepth={3}>
                     <div className="register-box-body">
-                        { /*this.getSignUpResponseMessage() */}
-                        <form> {/*From -> onSubmit={ this.onSubmit.bind(this) }*/}
-                            {/*textfield -> onChange={this.onChangeEmail.bind(this)} value={this.state.email}*/}
+                        <form onSubmit={ this.onSubmit.bind(this) }>
                             <SelectField
+                              style={styles.selectBar}
                               floatingLabelText="Solver"
-                              value={this.state.value}
-                              onChange={this.handleChange.bind(this)}
+                              value={this.state.solver}
+                              onChange={this.onChangeSelect.bind(this)}
                             >
-                              <MenuItem value={1} primaryText="CPLEX" />
+                              <MenuItem value={"CPLEX"} primaryText="CPLEX" />
                             </SelectField>
                             <br/>
                             <br/>
@@ -66,30 +104,40 @@ export default class Otros extends Component {
                               label="Log_file"
                               style={styles.checkbox}
                               labelPosition="left"
+                              checked={this.state.log ? true : false}
+                              onCheck={this.onChangeLog.bind(this)}
                             />
                             <br />
                             <Checkbox
                               label="Round values"
                               style={styles.checkbox}
                               labelPosition="left"
+                              checked={this.state.round ? true : false}
+                              onCheck={this.onChangeRound.bind(this)}
                             />
                             <br/>
                             <Checkbox
                               label="Only SB"
                               style={styles.checkbox}
                               labelPosition="left"
+                              checked={this.state.sb ? true : false}
+                              onCheck={this.onChangeSb.bind(this)}
                             />
                             <br/>
                             <Checkbox
                               label="Links between products"
                               style={styles.checkbox}
                               labelPosition="left"
+                              checked={this.state.links ? true : false}
+                              onCheck={this.onChangeLinks.bind(this)}
                             />
                             <br/>
                             <Checkbox
                               label="precios CB prod promo/liq"
                               style={styles.checkbox}
                               labelPosition="left"
+                              checked={this.state.precios ? true : false}
+                              onCheck={this.onChangePrecios.bind(this)}
                             />
                             <br/>
                             <RaisedButton label="submit" primary={true} style={styles.button} type="submit" />
@@ -97,8 +145,7 @@ export default class Otros extends Component {
                     </div>
                 </Paper>
             </div>
-            
+
         );
     }
 }
-
