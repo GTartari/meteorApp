@@ -25,64 +25,44 @@ const styleDivButton = {
 	padding: 30,
 }
 
-export default class UploadDataView extends Component {
+class UploadDataView extends Component {
 	constructor(props) {
         super(props);
-
-        this.state = {
-          uploading: true,
-        }
     }
 
-    uploadState() {
-      if(!this.state.uploading) {
-        var val = (
-          <p><i className="fa fa-spin fa-refresh"></i>Uploading files...</p>
-        );
-      } else {
-        var val = (
-          <p></p>
-        );
-      }
-      return val;
-    }
+uploadFile(event) {
+	let files = event.target.files;
+	let file = files[0];
+	let name = files[0].name;
 
-    uploadStateToggle() {
-      if(this.state.uploading)
-        this.setState({uploading:false});
-      else {
-        this.setState({uploading:true});
-      }
-    }
-
-		uploadFile(event) {
-			let files = event.target.files;
-			let file = files[0];
-			let name = files[0].name;
-
-      this.uploadStateToggle.bind(this);
-      console.log(this.state.uploading);
-
-      Papa.parse( event.target.files[0],{
-        header: true,
-        complete( result, file ) {
-          Meteor.call('parseUpload', result.data, (error, rensonse) => {
-            if(error) {
-							Bert.alert( 'Error!', 'danger', 'growl-top-right');
-              console.log(error.reason);
-            } else {
-              Bert.alert( 'Upload complete!', 'success', 'growl-top-right');
-            }
-          });
+  Papa.parse( event.target.files[0],{
+    header: true,
+    complete( result, file ) {
+      Meteor.call('parseUpload', result.data, (error, rensonse) => {
+        if(error) {
+					Bert.alert( 'Error! '+error.reason, 'danger', 'growl-top-right');
+        } else {
+          Bert.alert( 'Upload complete!', 'success', 'growl-top-right');
         }
       });
+    }
+  });
 
-    Meteor.call('dataInfo.insert', this.state, function( error, result) {
-      if(error){
-        console.log("call function returned error");
-      }
-    });
-	}
+  Meteor.call('dataInfo.insert', function( error, result) {
+    if(error) {
+      Bert.alert( 'Error! '+error.reason, 'danger', 'growl-top-right');
+    } else {
+      Bert.alert( 'Upload complete!', 'success', 'growl-top-right');
+    }
+  });
+}
+
+  renderDataInfo() {
+    let info = this.props.dataInfo;
+    return (
+        <p>Last update: {info[0] ? info[0].submitted.toLocaleTimeString() : null}</p>
+      );
+  }
 
     render() {
         return (
@@ -94,7 +74,7 @@ export default class UploadDataView extends Component {
 								iconClassNameRight="muidocs-icon-navigation-expand-more"
 								showMenuIconButton={false}
 								/>
-              {this.props.submitted}
+              {this.renderDataInfo()}
 							<input type="file" ref={(ref) => this.myInput = ref} style={{ display: 'none' }}
 								onChange={this.uploadFile.bind(this)} />
 							<div style={styleDivButton}>
@@ -109,3 +89,11 @@ export default class UploadDataView extends Component {
         );
     }
 }
+
+export default createContainer(() => {
+  const handle = Meteor.subscribe('dataInfo.subm');
+
+  return {
+    dataInfo: DataInfo.find().fetch(),
+  };
+}, UploadDataView);
