@@ -1,6 +1,13 @@
 DataFile = new Mongo.Collection('Data');
 
 Meteor.methods({
+  'fileCount' () {
+    var count = DataFile.find().count();
+    return count;
+  }
+});
+
+Meteor.methods({
   'parseUpload' ( data ) {
     check( data, Array );
 
