@@ -7,7 +7,7 @@ import SignUp from '../../ui/components/sign_up';
 import Dashboard from '../../ui/components/dashboard/dashboard.jsx';
 import Statistics from '../../ui/components/dashboard/views/statistics/statistics.jsx';
 import ModelParamView from '../../ui/components/dashboard/views/model_param/model_param.jsx';
-import UploadDataView from '../../ui/components/dashboard/views/uploadData/uploadData2.jsx';
+import UploadDataView from '../../ui/components/dashboard/views/uploadData/uploadData.jsx';
 import PyScript from '../../ui/components/dashboard/views/pyScript/pyScript.jsx';
 
 

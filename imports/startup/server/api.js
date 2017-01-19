@@ -9,6 +9,7 @@ import '../../api/users/server/publications';
 import '../../api/inputs/server/lib/inputObjData.js'
 import '../../api/inputs/server/lib/inputConstrData.js'
 import '../../api/inputs/server/lib/inputOtrosData.js'
-import '../../api/inputs/server/lib/parseUpload.js'
-
-import '../../api/inputs/server/publications/dataInfoPost'
+/**
+ * uploadData
+ */
+import '../../api/uploadData/server/publications'
