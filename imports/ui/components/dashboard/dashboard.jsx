@@ -6,7 +6,41 @@ import AppFooter from '../app/app_footer.jsx';
 import StatisticView from './views/statistics/statistics.jsx';
 import ModelParamView from './views/model_param/model_param.jsx';
 import SideBar from './sidebar/sidebar.jsx';
+import AppBar from 'material-ui/AppBar';
 
+const style = {
+  appBar: {
+    width: '100%',
+    boxSizing: "border-box",
+  },
+  container: {
+    width: "100%",
+    content: "",
+    clear: "both",
+    display: "table",
+    boxSizing: "border-box",
+  },
+  footer: {
+    width: '100%',
+    boxSizing: "border-box",
+  },
+  sideBar: {
+    height: '100%',
+  	width: '20%',
+    position: 'fixed',
+    zIndex: 1,
+    top: 0,
+    left: 0,
+    overflowX: 'hidden',
+    paddingTop: '60px',
+    backgroundColor: '#F1F1F1',
+  },
+  content: {
+  	width: '80%',
+    float: 'right',
+    boxSizing: "border-box",
+  }
+}
 
 class Dashboard extends Component {
     constructor(props) {
@@ -34,13 +68,25 @@ class Dashboard extends Component {
         };
 
         return (
-            <div className="wrapper">
-                <SideBar user={ this.props.currentUser } users={ this.props.users }/>               
-                <div className="content-wrapper" style={ contentMinHeight }>
-                    { this.getContentView() }
+            <div>
+              <div style={style.appBar}>
+                <AppBar   title="App Bar Example" />
+              </div>
+
+              <div style={style.container}>
+                <div style={style.sideBar}>
+                  <SideBar user={ this.props.currentUser } users={ this.props.users }/>
                 </div>
+                <div style={style.content}>
+                  <div className="content-wrapper" style={ contentMinHeight }>
+                      { this.getContentView() }
+                  </div>
+                </div>
+              </div>
+
+              <div style={style.footer}>
                 <AppFooter />
-                <div className="control-sidebar-bg"></div>
+              </div>
             </div>
         );
     }

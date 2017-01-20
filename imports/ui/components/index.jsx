@@ -18,7 +18,7 @@ class Index extends Component {
         let childRoute = this.props.children;
         const user = this.props.currentUser;
         let defaultChild = <Home />;
-        let dashboardRoute = <Dashboard />; 
+        let dashboardRoute = <Dashboard />;
 
         if (childRoute) {
             defaultChild = (childRoute.type.name == 'SignIn') ? <SignIn /> : defaultChild;
@@ -35,7 +35,7 @@ class Index extends Component {
     render() {
 
         return (
-            <div className="app-layout">
+            <div style={{height: "100%"}}>
                 { this.getChildRoute() }
             </div>
         );
@@ -45,7 +45,7 @@ class Index extends Component {
 Index.propTypes = {
     currentUser: PropTypes.object,
 };
- 
+
 export default IndexContainer = createContainer(() => {
     return {
         currentUser: Meteor.user(),

@@ -8,7 +8,9 @@ export default class AppFooter extends Component {
 				<div className="pull-right hidden-xs">
 					<b>Version</b> alpha 0.5
 				</div>
-				<strong>Copyright &copy; <a href="">Walmart Chile</a>.</strong> All rights reserved.
+        <div style={{marginLeft: '25%'}}>
+				      <strong>Copyright &copy; <a href="">Walmart Chile</a>.</strong> All rights reserved.
+        </div>
 			</footer>
         );
   	}
