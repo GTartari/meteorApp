@@ -6,10 +6,8 @@ import '../../api/users/server/publications';
 /**
  * usersInput
  */
-import '../../api/inputs/server/lib/inputObjData.js'
-import '../../api/inputs/server/lib/inputConstrData.js'
-import '../../api/inputs/server/lib/inputOtrosData.js'
+import '../../api/inputs/server/publications';
 /**
  * uploadData
  */
-import '../../api/uploadData/server/publications'
+import '../../api/uploadData/server/publications';
