@@ -9,6 +9,16 @@ import ListItem from 'material-ui/List/ListItem';
 import IconButton from 'material-ui/IconButton';
 import LogOut from 'material-ui/svg-icons/navigation/cancel';
 
+style1 = {
+  width: '80%',
+  float: 'left',
+}
+
+style2 = {
+  width: '20%',
+  float: 'right',
+}
+
 export default class SideBarUserPanel extends Component {
     constructor(props) {
         super(props);
@@ -19,23 +29,27 @@ export default class SideBarUserPanel extends Component {
     }
     logout() {
         Meteor.logout(function() {
-            browserHistory.push('/');   
-        });     
+            browserHistory.push('/');
+        });
     }
     render() {
         const displayName = this.props.userName;
-        
+
         return (
             <List>
+              <div style={style1}>
                 <ListItem
                   disabled={true}
                   leftAvatar={<Avatar>A</Avatar>}
                 >
                   { displayName }
-                  <IconButton tooltip="log-out" onClick={ this.logout }>
-                  <LogOut />
-                </IconButton>
                 </ListItem>
+                </div>
+                <div style={style2}>
+                <IconButton tooltip="log-out" onClick={ this.logout }>
+                <LogOut />
+              </IconButton>
+            </div>
             </List>
         )
     }

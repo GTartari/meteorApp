@@ -2,10 +2,9 @@ import React, { Component, PropTypes } from 'react';
 // import { Drawer, AppBar, MenuItem} from 'material-ui'
 // This is faster & creates smaller builds:
 import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'    
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Divider from 'material-ui/Divider';
 
 import SideBarUserPanel from './sidebar_user_panel';
@@ -23,9 +22,9 @@ export default class Header extends Component {
       const currentUser = this.props.user;
 
       if (currentUser) {
-          return currentUser.emails[0].address;
+          return currentUser.username;
       } else {
-          return 'Alexander Pierce';
+          return '---';
       }
   };
 
@@ -36,24 +35,16 @@ export default class Header extends Component {
   render() {
 
       return (
-          <div>
-            <Drawer
-              docked={false}
-              open={this.state.open}
-              onRequestChange={(open) => this.setState({open})}
-              >
-
-
-
-              <SideBarUserPanel userName={ this.userDisplayName() } user={ this.props.user }/>
+            <div>
+              <div>
+                <SideBarUserPanel userName={ this.userDisplayName() } user={ this.props.user }/>
+              </div>
+              <br />
+              <br />
               <Divider />
-              <SideBarSearchPanel />
               <SideBarMenu />
               <Divider />
-            </Drawer>
-            <AppBar   title="App Bar Example"
-            onLeftIconButtonTouchTap={this.handleToggle.bind(this)} />
-          </div>
+            </div>
       );
   }
 }
