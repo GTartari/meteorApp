@@ -4,6 +4,7 @@ import { Session } from 'meteor/session'
 
 // components
 import ContentHeader from '../content_header.jsx';
+import UploadState from './components/uploadState'
 
 // packages
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -27,6 +28,31 @@ const style = {
   	padding: 30,
   }
 }
+
+var UploadLoader = React.createClass({
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    return {
+      uploadState: Session.get("uploading")
+    };
+  },
+  render() {
+    // Show a loading indicator if data is not ready
+    if (this.data.uploadState) {
+      return (
+        <div>
+          <h1>Uploading...</h1>
+          <CircularProgress />
+        </div>
+      );
+    } else {
+      // Render a component and pass down the loaded data
+      return (
+        <p>Last upload: {this.props.submitted}</p>
+      );
+    }
+  }
+});
 
 class UploadDataView extends Component {
 	constructor(props) {
@@ -54,29 +80,17 @@ class UploadDataView extends Component {
       }
     });
 
-    Meteor.call('dataInfo.insert', function( error, result) {
-      if(error) {
-        Bert.alert( 'Error! '+error.reason, 'danger', 'growl-top-right');
-      } else {
-        Bert.alert( 'Upload complete!', 'success', 'growl-top-right');
-      }
-    });
+    Meteor.call('dataInfo.insert');
   }
 
   renderDataInfo() {
     let info = this.props.dataInfo;
-    if(this.props.uploadingState) {
+    let submitted = info[0] ? info[0].submitted.toLocaleTimeString() : null;
       return(
         <div>
-          <h1>Loading...</h1>
-          <CircularProgress />
+          <UploadLoader submitted={submitted} />
         </div>
       );
-    } else {
-      return (
-        <p>Last update: {info[0] ? info[0].submitted.toLocaleTimeString() : null}</p>
-      );
-    }
   }
 
   render() {
@@ -109,7 +123,6 @@ export default createContainer(() => {
   const handle = Meteor.subscribe('dataInfo.subm');
 
   return {
-    uploadingState: Session.get("uploading"),
     dataInfo: DataInfo.find().fetch(),
   };
 }, UploadDataView);

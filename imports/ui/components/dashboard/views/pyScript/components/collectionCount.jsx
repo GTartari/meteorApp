@@ -3,7 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session'
 
 const style = {
-  padding: 30,
+  margin: 10,
 }
 
 class CollectionCount extends Component {
