@@ -15,7 +15,6 @@ import CustomizedSlider from './customizedSlider';
 
 const style = {
   margin: 12,
-  paddingTop: 30,
 };
 
 const styleSlider = {
