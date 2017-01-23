@@ -33,8 +33,8 @@ export default class ConstrTable extends Component {
            displayRowCheckbox={false}
          >
              <TableRow>
-               <TableRowColumn style={{width: '90%'}}>N° máx. de movimientos de precio</TableRowColumn>
-               <TableRowColumn style={{width: '10%'}}>{this.props.input ? this.props.input.movPrecios : "-"}</TableRowColumn>
+               <TableRowColumn style={{width: '80%'}}>N° máx. de movimientos de precio</TableRowColumn>
+               <TableRowColumn style={{width: '20%'}}>{this.props.input ? this.props.input.movPrecios : "-"}</TableRowColumn>
              </TableRow>
              <TableRow>
                <TableRowColumn>Máx. posicionamiento por producto</TableRowColumn>
