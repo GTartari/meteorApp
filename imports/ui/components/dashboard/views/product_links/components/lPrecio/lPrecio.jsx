@@ -1,0 +1,164 @@
+import React, { Component, PropTypes } from 'react';
+
+import TextField from 'material-ui/TextField';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
+import PSearch from './pSearch';
+import LSearch from './lSearch';
+
+const stylePaper = {
+  width: '70%',
+  margin: '0 auto',
+  textAlign: 'center',
+};
+
+export default class LPrecio extends Component {
+	constructor(props) {
+        super(props);
+
+        this.state = {
+          prdNbrBase: 0,
+          prdNbrLnk: 0,
+          pSearch: 'none',
+          PSearchNumber: 0,
+          LSearchBase: 0,
+          LSearchLink: 0,
+          lSearch: 'none',
+          table: '',
+        };
+  }
+
+  onChangeNbrBase(event) {
+      let prdNbrBase = Number(event.target.value);
+      this.setState({prdNbrBase});
+  }
+
+  onChangeNbrLink(event) {
+      let prdNbrLnk = Number(event.target.value);
+      this.setState({prdNbrLnk});
+  }
+
+  onChangePrdSearch(event) {
+      let PSearchNumber = Number(event.target.value);
+      this.setState({PSearchNumber});
+  }
+
+  onChangeBaseSearch(event) {
+    let LSearchBase = Number(event.target.value);
+    this.setState({LSearchBase});
+  }
+
+  onChangeLinkSearch(event) {
+    let LSearchLink = Number(event.target.value);
+    this.setState({LSearchLink});
+  }
+
+  onDifSubmit(event) {
+      event.preventDefault();
+      Meteor.call('eqLink.insert', { prdNbrBase: this.state.prdNbrBase, prdNbrLnk: this.state.prdNbrLnk} , function(error, result){
+          if(error)
+              console.log("call function returned error: " + error);
+          else{
+              if(result == 1)
+                Bert.alert( 'Link added!', 'success', 'growl-top-right');
+              else
+                if(result == 3)
+                  Bert.alert( 'Product numbers must be different!', 'error', 'growl-top-right');
+                else
+                  Bert.alert( 'Link already exist!', 'info', 'growl-top-right');
+          }
+      });
+  }
+
+  prdSearch() {
+      this.setState({ table: 'prod'});
+  }
+
+  linkSearch() {
+      this.setState({ table: 'link'});
+  }
+
+  showTable() {
+    if(this.state.table=="link")
+      return <LSearch pNumber={{base:this.state.LSearchBase, link:this.state.LSearchLink}} />;
+    else
+      if(this.state.table=="prod")
+        return <PSearch pNumber={{prodNumber:this.state.PSearchNumber}} />;
+      else
+        return <div></div>;
+
+  }
+
+  handleSelectChange(event, index, value) {
+    if(value==0){
+      this.setState({lSearch: 'none', pSearch: 'none'});
+    } else {
+      if(value==1){
+        this.setState({lSearch: 'none', pSearch: 'block'});
+      } else {
+        this.setState({lSearch: 'block', pSearch: 'none'});}
+    }
+  }
+
+  render () {
+    return (
+      <Paper style={stylePaper} zDepth={3}>
+        <div className="register-box-body">
+            <form onSubmit={ this.onDifSubmit.bind(this) }>
+                <Subheader>Diferencia precio</Subheader>
+                <TextField
+                  type="number" onChange={ this.onChangeNbrBase.bind(this) }
+                  value={ this.state.prdNbrBase } hintText="Valor"
+                  floatingLabelText="Product number base"
+                  style={{width:140, margin:20}} />
+                <TextField type="number" hintText="Valor"
+                  onChange={ this.onChangeNbrLink.bind(this) }
+                  value={ this.state.prdNbrLnk } floatingLabelText="Product number Link"
+                  style={{width:140, margin:20}} />
+                 <RaisedButton label="Agregar Link" primary={true} type="submit" />
+            </form>
+        </div>
+        <Divider />
+        <div>
+          <SelectField
+            floatingLabelText="Buscar por"
+            onChange={this.handleSelectChange.bind(this)}
+          >
+          <MenuItem value={0} primaryText="-" />
+          <MenuItem value={1} primaryText="Product Number" />
+          <MenuItem value={2} primaryText="Link" />
+        </SelectField>
+        </div>
+        <div style={{display:this.state.pSearch}}>
+          <Subheader>Buscar por Product Number</Subheader>
+          <TextField type="number" hintText="Valor"
+            onChange={ this.onChangePrdSearch.bind(this) }
+            value={ this.state.PSearchNumber } floatingLabelText="Product Number"
+             style={{width:140, margin:20}} />
+           <RaisedButton label="Buscar Producto" primary={true} type="submit" onClick={this.prdSearch.bind(this)} />
+        </div>
+        <div style={{display:this.state.lSearch}}>
+          <Subheader>Buscar por Link</Subheader>
+          <TextField type="number" hintText="Valor"
+            onChange={ this.onChangeBaseSearch.bind(this) }
+            value={ this.state.LSearchBase } floatingLabelText="Product Number"
+            style={{width:140, margin:20}} />
+          <TextField type="number" hintText="Valor"
+            onChange={ this.onChangeLinkSearch.bind(this) }
+            value={ this.state.LSearchLink } floatingLabelText="Product Number"
+            style={{width:140, margin:20}} />
+          <RaisedButton label="Buscar Producto" primary={true} type="submit" onClick={this.linkSearch.bind(this)} />
+        </div>
+        <div>
+          {this.showTable()}
+        </div>
+      </Paper>
+    );
+  }
+}

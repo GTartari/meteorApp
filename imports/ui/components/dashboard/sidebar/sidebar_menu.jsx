@@ -10,6 +10,7 @@ import Upload from 'material-ui/svg-icons/file/file-upload';
 import ContentCopy from 'material-ui/svg-icons/content/content-copy';
 import Graph from 'material-ui/svg-icons/device/graphic-eq.js';
 import UserI from 'material-ui/svg-icons/action/verified-user';
+import InsertLink from 'material-ui/svg-icons/editor/insert-link.js';
 import Paper from 'material-ui/Paper';
 
 styleMenu = {
@@ -33,6 +34,7 @@ export default class SideBarMenu extends Component {
             <Divider />
             <MenuItem primaryText="UploadData" leftIcon={<Upload />} containerElement={ <Link to="/updata" />} />
             <MenuItem primaryText="Parametros" leftIcon={<ContentCopy />} containerElement={ <Link to="/modelparam" />} />
+            <MenuItem primaryText="Links productos" leftIcon={<InsertLink />} containerElement={ <Link to="/links" />} />
             <MenuItem primaryText="Stats" leftIcon={<Graph />} containerElement={ <Link to="/stats" />} />
             <MenuItem primaryText="pyScript" leftIcon={<Graph />} containerElement={ <Link to="/script" />} />
             <Divider />
