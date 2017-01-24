@@ -19,13 +19,14 @@ const stylePaper = {
   textAlign: 'center',
 };
 
-export default class LPrecio extends Component {
+export default class LFact extends Component {
 	constructor(props) {
         super(props);
 
         this.state = {
           prdNbrBase: 0,
           prdNbrLnk: 0,
+          fact: 0,
           pSearch: 'none',
           PSearchNumber: 0,
           LSearchBase: 0,
@@ -46,6 +47,11 @@ export default class LPrecio extends Component {
       this.setState({prdNbrLnk});
   }
 
+  onChangeFact(event) {
+      let fact = Number(event.target.value);
+      this.setState({fact});
+  }
+
   onChangePrdSearch(event) {
       let PSearchNumber = Number(event.target.value);
       this.setState({PSearchNumber});
@@ -61,9 +67,9 @@ export default class LPrecio extends Component {
     this.setState({LSearchLink});
   }
 
-  onEqSubmit(event) {
+  onFactSubmit(event) {
       event.preventDefault();
-      Meteor.call('eqLink.insert', { prdNbrBase: this.state.prdNbrBase, prdNbrLnk: this.state.prdNbrLnk} , function(error, result){
+      Meteor.call('factLink.insert', { prdNbrBase: this.state.prdNbrBase, prdNbrLnk: this.state.prdNbrLnk, fact: this.state.fact} , function(error, result){
           if(error)
               console.log("call function returned error: " + error);
           else{
@@ -121,8 +127,8 @@ export default class LPrecio extends Component {
     return (
       <Paper style={stylePaper} zDepth={3}>
         <div className="register-box-body">
-            <form onSubmit={ this.onEqSubmit.bind(this) }>
-                <Subheader>Igual precio</Subheader>
+            <form onSubmit={ this.onFactSubmit.bind(this) }>
+                <Subheader>Factor precio</Subheader>
                 <TextField
                   type="number" onChange={ this.onChangeNbrBase.bind(this) }
                   value={ this.state.prdNbrBase } hintText="Valor"
@@ -132,6 +138,10 @@ export default class LPrecio extends Component {
                   onChange={ this.onChangeNbrLink.bind(this) }
                   value={ this.state.prdNbrLnk } floatingLabelText="Product number Link"
                   style={{width:140, margin:20}} />
+                <TextField type="number" hintText="Valor"
+                  onChange={ this.onChangeFact.bind(this) }
+                  value={ this.state.fact } floatingLabelText="Factor precio"
+                   style={{width:140, margin:20}} />
                  <RaisedButton label="Agregar Link" primary={true} type="submit" />
             </form>
         </div>

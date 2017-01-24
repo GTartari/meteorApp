@@ -13,3 +13,5 @@ import '../../api/inputs/lib/inputOtrosData.js';
 /* Links */
 import '../../api/links/lib/lDif.js';
 import '../../api/links/lib/lPrecio.js';
+import '../../api/links/lib/lFact.js';
+import '../../api/links/lib/lMP.js';

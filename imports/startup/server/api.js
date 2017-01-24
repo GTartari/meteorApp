@@ -12,6 +12,6 @@ import '../../api/inputs/server/publications';
  */
 import '../../api/uploadData/server/publications';
 /**
- * uploadData
+ * links
  */
  import '../../api/links/server/publications';

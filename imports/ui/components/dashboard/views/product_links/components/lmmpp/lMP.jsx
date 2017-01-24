@@ -19,13 +19,15 @@ const stylePaper = {
   textAlign: 'center',
 };
 
-export default class LPrecio extends Component {
+export default class LMP extends Component {
 	constructor(props) {
         super(props);
 
         this.state = {
-          prdNbrBase: 0,
+          prdNbrMP: 0,
           prdNbrLnk: 0,
+          posN: 0,
+          posP: 0,
           pSearch: 'none',
           PSearchNumber: 0,
           LSearchBase: 0,
@@ -36,14 +38,24 @@ export default class LPrecio extends Component {
         };
   }
 
-  onChangeNbrBase(event) {
-      let prdNbrBase = Number(event.target.value);
-      this.setState({prdNbrBase});
+  onChangeNbrMP(event) {
+      let prdNbrMP = Number(event.target.value);
+      this.setState({prdNbrMP});
   }
 
   onChangeNbrLink(event) {
       let prdNbrLnk = Number(event.target.value);
       this.setState({prdNbrLnk});
+  }
+
+  onChangePosN(event) {
+      let posN = Number(event.target.value);
+      this.setState({posN});
+  }
+
+  onChangePosP(event) {
+      let posP = Number(event.target.value);
+      this.setState({posP});
   }
 
   onChangePrdSearch(event) {
@@ -61,9 +73,9 @@ export default class LPrecio extends Component {
     this.setState({LSearchLink});
   }
 
-  onEqSubmit(event) {
+  onMPSubmit(event) {
       event.preventDefault();
-      Meteor.call('eqLink.insert', { prdNbrBase: this.state.prdNbrBase, prdNbrLnk: this.state.prdNbrLnk} , function(error, result){
+      Meteor.call('mPLink.insert', { prdNbrMP: this.state.prdNbrMP, prdNbrLnk: this.state.prdNbrLnk, posN: this.state.posN, posP: this.state.posP} , function(error, result){
           if(error)
               console.log("call function returned error: " + error);
           else{
@@ -92,7 +104,7 @@ export default class LPrecio extends Component {
 
   showTable() {
     if(this.state.table=="link")
-      return <LSearch pNumber={{base:this.state.LSearchBase, link:this.state.LSearchLink}} />;
+      return <LSearch pNumber={{mP:this.state.LSearchBase, link:this.state.LSearchLink}} />;
     else
       if(this.state.table=="prod")
         return <PSearch pNumber={{prodNumber:this.state.PSearchNumber}} />;
@@ -121,18 +133,26 @@ export default class LPrecio extends Component {
     return (
       <Paper style={stylePaper} zDepth={3}>
         <div className="register-box-body">
-            <form onSubmit={ this.onEqSubmit.bind(this) }>
-                <Subheader>Igual precio</Subheader>
+            <form onSubmit={ this.onMPSubmit.bind(this) }>
+                <Subheader>Links Marcas Propias</Subheader>
                 <TextField
-                  type="number" onChange={ this.onChangeNbrBase.bind(this) }
-                  value={ this.state.prdNbrBase } hintText="Valor"
-                  floatingLabelText="Product number base"
+                  type="number" onChange={ this.onChangeNbrMP.bind(this) }
+                  value={ this.state.prdNbrMP } hintText="Valor"
+                  floatingLabelText="Product number Marca Propia"
                   style={{width:140, margin:20}} />
                 <TextField type="number" hintText="Valor"
                   onChange={ this.onChangeNbrLink.bind(this) }
                   value={ this.state.prdNbrLnk } floatingLabelText="Product number Link"
                   style={{width:140, margin:20}} />
-                 <RaisedButton label="Agregar Link" primary={true} type="submit" />
+                <TextField type="number" hintText="Valor"
+                  onChange={ this.onChangePosN.bind(this) }
+                  value={ this.state.posN } floatingLabelText="Posición Normal"
+                   style={{width:140, margin:20}} />
+                <TextField type="number" hintText="Valor"
+                 onChange={ this.onChangePosP.bind(this) }
+                 value={ this.state.posP } floatingLabelText="Posición Promoción"
+                  style={{width:140, margin:20}} />
+                <RaisedButton label="Agregar Link" primary={true} type="submit" style={{ marginBottom: 10 }} />
             </form>
         </div>
         <Divider />

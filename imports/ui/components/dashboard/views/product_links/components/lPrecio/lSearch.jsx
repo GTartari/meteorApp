@@ -30,7 +30,7 @@ class LSearch extends Component {
            adjustForCheckbox={false}
          >
            <TableRow>
-             <TableHeaderColumn colSpan="3" tooltip="Super Header" style={{textAlign: 'center'}}>
+             <TableHeaderColumn colSpan="2" tooltip="Super Header" style={{textAlign: 'center'}}>
                Resultado busqueda
              </TableHeaderColumn>
            </TableRow>

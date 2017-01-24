@@ -15,8 +15,10 @@ class PSearch extends Component {
     return links.map((link) => {
       return(
         <TableRow key={link._id}>
-          <TableRowColumn>{link.prdNbrBase}</TableRowColumn>
+          <TableRowColumn>{link.prdNbrMP}</TableRowColumn>
           <TableRowColumn>{link.prdNbrLnk}</TableRowColumn>
+          <TableRowColumn>{link.posN}</TableRowColumn>
+          <TableRowColumn>{link.posP}</TableRowColumn>
         </TableRow>
       );
     });
@@ -30,13 +32,15 @@ class PSearch extends Component {
            adjustForCheckbox={false}
          >
            <TableRow>
-             <TableHeaderColumn colSpan="2" tooltip="Super Header" style={{textAlign: 'center'}}>
+             <TableHeaderColumn colSpan="4" tooltip="Super Header" style={{textAlign: 'center'}}>
                Resultado busqueda
              </TableHeaderColumn>
            </TableRow>
            <TableRow>
              <TableHeaderColumn>Número de producto</TableHeaderColumn>
              <TableHeaderColumn>Número de link</TableHeaderColumn>
+             <TableHeaderColumn>Posición normal</TableHeaderColumn>
+             <TableHeaderColumn>Posición promoción</TableHeaderColumn>
            </TableRow>
          </TableHeader>
          <TableBody
@@ -51,10 +55,10 @@ class PSearch extends Component {
 
 export default createContainer(({ pNumber }) => {
   const { prodNumber } = pNumber;
-  Meteor.subscribe('pSearchEq.base', prodNumber);
-  Meteor.subscribe('pSearchEq.link', prodNumber);
+  Meteor.subscribe('pSearchMP.mp', prodNumber);
+  Meteor.subscribe('pSearchMP.link', prodNumber);
 
   return {
-    searchData: LPrecio.find().fetch(),
+    searchData: LMP.find().fetch(),
   };
 }, PSearch);

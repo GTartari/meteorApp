@@ -11,6 +11,7 @@ import MenuItem from 'material-ui/MenuItem';
 
 import PSearch from './pSearch';
 import LSearch from './lSearch';
+import ASearch from './aSearch';
 
 const stylePaper = {
   width: '70%',
@@ -31,6 +32,7 @@ export default class LDif extends Component {
           LSearchBase: 0,
           LSearchLink: 0,
           lSearch: 'none',
+          aSearch: 'none',
           table: '',
         };
   }
@@ -90,6 +92,10 @@ export default class LDif extends Component {
       this.setState({ table: 'link'});
   }
 
+  aSearch() {
+      this.setState({ table: 'todo'});
+  }
+
   showTable() {
     if(this.state.table=="link")
       return <LSearch pNumber={{base:this.state.LSearchBase, link:this.state.LSearchLink}} />;
@@ -97,18 +103,23 @@ export default class LDif extends Component {
       if(this.state.table=="prod")
         return <PSearch pNumber={{prodNumber:this.state.PSearchNumber}} />;
       else
-        return <div></div>;
-
+        if(this.state.table=="todo")
+          return <ASearch />;
+        else
+          return <div></div>;
   }
 
   handleSelectChange(event, index, value) {
     if(value==0){
-      this.setState({lSearch: 'none', pSearch: 'none'});
+      this.setState({lSearch: 'none', pSearch: 'none', aSearch: 'none'});
     } else {
       if(value==1){
-        this.setState({lSearch: 'none', pSearch: 'block'});
+        this.setState({lSearch: 'none', pSearch: 'block', aSearch: 'none'});
+      } else if(value==2) {
+        this.setState({lSearch: 'block', pSearch: 'none', aSearch: 'none'});
       } else {
-        this.setState({lSearch: 'block', pSearch: 'none'});}
+        this.setState({lSearch: 'none', pSearch: 'none', aSearch: 'block'});
+      }
     }
   }
 
@@ -143,6 +154,7 @@ export default class LDif extends Component {
           <MenuItem value={0} primaryText="-" />
           <MenuItem value={1} primaryText="Product Number" />
           <MenuItem value={2} primaryText="Link" />
+          <MenuItem value={3} primaryText="Todos" />
         </SelectField>
         </div>
         <div style={{display:this.state.pSearch}}>
@@ -163,7 +175,11 @@ export default class LDif extends Component {
             onChange={ this.onChangeLinkSearch.bind(this) }
             value={ this.state.LSearchLink } floatingLabelText="Product Number"
             style={{width:140, margin:20}} />
-          <RaisedButton label="Buscar Producto" primary={true} type="submit" onClick={this.linkSearch.bind(this)} />
+          <RaisedButton label="Buscar Producto" primary={true} onClick={this.linkSearch.bind(this)} />
+        </div>
+        <div style={{display:this.state.aSearch}}>
+          <Subheader>Buscar todo</Subheader>
+          <RaisedButton label="Buscar Todo" primary={true} onClick={this.aSearch.bind(this)} style={{marginBottom:20}}/>
         </div>
         <div>
           {this.showTable()}

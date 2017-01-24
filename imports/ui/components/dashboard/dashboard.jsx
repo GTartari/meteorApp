@@ -34,6 +34,7 @@ const style = {
     overflowX: 'hidden',
     paddingTop: '60px',
     backgroundColor: '#F1F1F1',
+    boxShadow: '5px 0px 20px #888888',
   },
   content: {
   	width: '80%',

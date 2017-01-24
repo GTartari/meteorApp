@@ -11,6 +11,8 @@ import SwipeableViews from 'react-swipeable-views';
 // components
 import LDif from './components/iDif/lDif';
 import LPrecio from './components/lPrecio/lPrecio';
+import LFact from './components/lFact/lFact';
+import LMP from './components/lmmpp/lMP';
 
 const styles = {
   headline: {
@@ -76,10 +78,10 @@ export default class ProductLinks extends Component {
                   <LPrecio />
                 </div>
                 <div style={styles.slide}>
-                  Formato
+                  <LFact />
                 </div>
                 <div style={styles.slide}>
-                  Marca propia
+                  <LMP />
                 </div>
               </SwipeableViews>
             </div>

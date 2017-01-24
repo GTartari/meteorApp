@@ -13,9 +13,11 @@ import UserI from 'material-ui/svg-icons/action/verified-user';
 import InsertLink from 'material-ui/svg-icons/editor/insert-link.js';
 import Paper from 'material-ui/Paper';
 
-styleMenu = {
-  width: "90%",
-};
+const style = {
+  menu: {
+    width: '90%',
+  }
+}
 
 export default class SideBarMenu extends Component {
     constructor(props) {
@@ -27,7 +29,7 @@ export default class SideBarMenu extends Component {
     render() {
         const userCount = this.props.userCount;
         return (
-          <div style={styleMenu}>
+          <div style={style.menu}>
           <Menu>
             <MenuItem primaryText="Main Navigation" />
             <MenuItem primaryText="Dashboard" leftIcon={<Dashboard />} />

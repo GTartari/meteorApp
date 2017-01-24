@@ -5,7 +5,7 @@ import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow,
   from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 
-class PSearch extends Component {
+class ASearch extends Component {
   constructor(props) {
     super(props);
   }
@@ -24,7 +24,7 @@ class PSearch extends Component {
 
   render () {
     return (
-      <Table>
+      <Table height="300px">
          <TableHeader
            displaySelectAll={false}
            adjustForCheckbox={false}
@@ -49,12 +49,10 @@ class PSearch extends Component {
   }
 }
 
-export default createContainer(({ pNumber }) => {
-  const { prodNumber } = pNumber;
-  Meteor.subscribe('pSearchEq.base', prodNumber);
-  Meteor.subscribe('pSearchEq.link', prodNumber);
+export default createContainer(() => {
+  Meteor.subscribe('aSearchEq');
 
   return {
     searchData: LPrecio.find().fetch(),
   };
-}, PSearch);
+}, ASearch);
