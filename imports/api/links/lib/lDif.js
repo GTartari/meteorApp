@@ -24,7 +24,7 @@ Meteor.methods({
           {prdNbrLnk:inputAttributes.prdNbrBase},
           {prdNbrBase:inputAttributes.prdNbrLnk}
         ]});
-        
+
         if(inputAttributes.prdNbrBase == inputAttributes.prdNbrLnk)
           return 3;
 
@@ -33,5 +33,10 @@ Meteor.methods({
             return 1;
           } else
             return 2;
+    },
+
+    'difLink.eliminar'(linkId) {
+        check(linkId, String);
+        LDif.remove(linkId);
     }
 });

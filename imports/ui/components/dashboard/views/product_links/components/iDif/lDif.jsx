@@ -34,6 +34,7 @@ export default class LDif extends Component {
           lSearch: 'none',
           aSearch: 'none',
           table: '',
+          replace: false,
         };
   }
 
@@ -78,10 +79,12 @@ export default class LDif extends Component {
               else
                 if(result == 3)
                   Bert.alert( 'Product numbers must be different!', 'error', 'growl-top-right');
-                else
+                else{
                   Bert.alert( 'Link already exist!', 'info', 'growl-top-right');
+                  this.setState({bindedState: 'si'});
+                }
           }
-      });
+      }.bind(this));
   }
 
   prdSearch() {
@@ -104,9 +107,13 @@ export default class LDif extends Component {
         return <PSearch pNumber={{prodNumber:this.state.PSearchNumber}} />;
       else
         if(this.state.table=="todo")
-          return <ASearch />;
+          return <ASearch elimLink={this.eliminar} />;
         else
           return <div></div>;
+  }
+
+  eliminar(id) {
+    Meteor.call('difLink.eliminar', id);
   }
 
   handleSelectChange(event, index, value) {
@@ -126,6 +133,7 @@ export default class LDif extends Component {
   render () {
     return (
       <Paper style={stylePaper} zDepth={3}>
+        {this.state.bindedState}
         <div className="register-box-body">
             <form onSubmit={ this.onDifSubmit.bind(this) }>
                 <Subheader>Diferencia precio</Subheader>
